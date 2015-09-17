@@ -1,7 +1,8 @@
 package com.williamito.popularmovies;
 
+import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -22,24 +23,17 @@ public class ImageAdapter extends ArrayAdapter<Movie> {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView = (ImageView) convertView;
-        if (imageView == null) {
-            Log.v("", "Was null");
-            imageView = new ImageView(context);
-        } else {
-            Log.v("", "Not null");
+        if (convertView == null) {
+            LayoutInflater mInflater =
+                    (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            convertView = mInflater.inflate(R.layout.grid_item_poster, null);
         }
         Movie movie = getItem(position);
         String url = movie.getPosterPath();
-        Log.v("", "Loading " + url);
-        Picasso.with(context).setLoggingEnabled(true);
-        Picasso.with(context).setIndicatorsEnabled(true);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.grid_item_poster_imageview);
         Picasso.with(context)
                 .load(url)
-                .placeholder(R.drawable.sample_0)
-                .error(R.drawable.sample_1)
                 .into(imageView);
-        Log.v("", "Picasso?");
-        return imageView;
+        return convertView;
     }
 }
