@@ -1,5 +1,7 @@
 package com.williamito.popularmovies;
 
+import com.squareup.picasso.Picasso;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,7 +29,8 @@ public class ImageAdapter extends ArrayAdapter<Movie> {
             convertView = mInflater.inflate(R.layout.grid_item_poster, null);
         }
         Movie movie = getItem(position);
-        String url = movie.getPosterPath();
+        final String BASE_URL = "http://image.tmdb.org/t/p/w185";
+        String url = BASE_URL + movie.getPosterPath();
         ImageView imageView = (ImageView) convertView.findViewById(R.id.grid_item_poster_imageview);
         Picasso.with(context)
                 .load(url)

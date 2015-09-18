@@ -24,4 +24,9 @@ public class Movie {
     public String getPosterPath() {
         return posterPath;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s, %s", this.id, this.title, this.releaseDate, this.posterPath, this.voteAverage, this.overview);
+    }
 }
